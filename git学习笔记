@@ -1,0 +1,29 @@
+ 
+git管理
+
+git配置
+1、按照git
+2、在安装好git的机器上新建一个目录：mkdir （目录名），进入到该目录，通过git init命令把这个目录变成Git可以管理的仓库，
+3、将文件添加到版本库：git add (文件)，将文件提交到版本库：git commit -m 《本次提交说明》
+4、查看git状态： git status
+5、查看文件修改的详细信息： git diff 文件
+6、查看git 从最近到最远的提交日志：git log
+7、git中文件返回到一个版本：git reset --hard HEAD^    或者 HEAD～（数字），也可以按照提交的id去指定返回到某一个版本：git reset --hard 3628164
+   Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+8、当你用git reset --hard HEAD^回退到add distributed版本时，再想恢复到append GPL，就必须找到append GPL的commit id。Git提供了一个命令git reflog用来记录你的每一次命令：
+9、场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+10、命令git rm用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容
+
+   场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+git操作：
+
+1、将主干的项目clone一份到本地
+2、在主干中新建一个分支，使用命令：git branch (分支名称)
+3、将新建的分支提交到远程主干分支上，使用命令：git push origin (分支名称)
+4、从新建的分支中检出新的项目：git clone git@（git的地址）:(主干分支名称) -b (子分支名称) （本地路径）
+5、从主干中删除一个（本地）分支：git branch -d (分支名称)
+6、查看git 上的分支： git branch
+7、删除远程上的一个分支：git push origin -d (分支名称)
+8、推送一个空tag到远程tag： （删除）git tag -d (tag名称)   （推送）git push origin :refs/tags/<tagname>
+9、重命名分支：git push -m (旧分支名称) （新分支名称）  将重命名后的分支推送到远程，远程分支也就会变化：git push origin (新分支名称)
+10、获取远程的tag:git fetch origin tag (tag名称)

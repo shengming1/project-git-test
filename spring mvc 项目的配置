@@ -1,0 +1,579 @@
+
+项目是maven项目下配置
+
+1、首先引入spring相关的包
+
+   <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.version>4.1.4.RELEASE</spring.version>
+		<hibernate.version>4.3.8.Final</hibernate.version>
+		<jackson.version>2.5.0</jackson.version>
+    </properties>
+        
+<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 使用SpringMVC需配置 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- 关系型数据库整合时需配置 如hibernate jpa等 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- 二级缓存ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- mysql连接 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.34</version>
+		</dependency>
+
+		<!-- c3p0数据源 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5-pre10</version>
+		</dependency>
+
+		<!-- json -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- aop -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>3.0-alpha-1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>springmvc_hibernate_demo</finalName>
+
+		<plugins>
+			<!-- Run the JUnit unit tests in an isolated classloader -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+
+			<!-- generate java doc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<javadocDirectory>target/javadoc</javadocDirectory>
+					<reportOutputDirectory>target/javadoc</reportOutputDirectory>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<show>private</show>
+				</configuration>
+			</plugin>
+
+			<!-- 部署至本机 -->
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<container>
+						<containerId>tomcat6x</containerId>
+						<home>D:\WebServer\apache-tomcat-6.0.39</home>
+					</container>
+					<configuration>
+						<type>existing</type>
+						<home>D:\WebServer\apache-tomcat-6.0.39</home>
+					</configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+</project>
+
+
+
+2、引入spring的配置文件
+
+   #application configs
+
+#jdbc c3p0 config
+jdbc.driver = com.mysql.jdbc.Driver
+jdbc.url = jdbc:mysql://localhost:3306/work?useUnicode=true&characterEncoding=utf-8
+jdbc.username = root
+jdbc.password = 12345
+
+#hibernate config
+hibernate.dialect = org.hibernate.dialect.MySQLDialect
+hibernate.show_sql = true
+hibernate.format_sql = false
+hibernate.hbm2ddl.auto = update
+hibernate.cache.use_second_level_cache = true
+hibernate.cache.use_query_cache = true
+hibernate.cache.region.factory_class = org.hibernate.cache.ehcache.EhCacheRegionFactory
+hibernate.cache.provider_configuration_file_resource_path = ehcache.xml
+
+
+
+3、spring.xml的配置内容
+
+   <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<!-- 加载配置文件 -->
+	
+	<context:property-placeholder location="classpath:config.properties"/>
+	<!-- 扫描service自动注入为bean -->
+	<context:component-scan base-package="org.andy.work.service.impl,org.andy.work.dao.impl" />
+
+</beans>
+上面spring配置了对应包下组件bean自动注入管理，我们需要将dao,service的实现类交由spring管理，如
+在实体中使用可以一下注解：
+（@Repository，@Service）
+
+
+4、引入日志文件配置Log4j
+
+
+  ### set log levels ###
+log4j.rootLogger = INFO , C , D , E 
+
+### console ###
+log4j.appender.C = org.apache.log4j.ConsoleAppender
+log4j.appender.C.Target = System.out
+log4j.appender.C.layout = org.apache.log4j.PatternLayout
+log4j.appender.C.layout.ConversionPattern = [springmvc_hibernate_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+### log file ###
+log4j.appender.D = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.D.File = ../logs/springmvc_hibernate_demo.log
+log4j.appender.D.Append = true
+log4j.appender.D.Threshold = INFO 
+log4j.appender.D.layout = org.apache.log4j.PatternLayout
+log4j.appender.D.layout.ConversionPattern = [springmvc_hibernate_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+### exception ###
+log4j.appender.E = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.E.File = ../logs/springmvc_hibernate_demo_error.log 
+log4j.appender.E.Append = true
+log4j.appender.E.Threshold = ERROR 
+log4j.appender.E.layout = org.apache.log4j.PatternLayout
+log4j.appender.E.layout.ConversionPattern = [sspringmvc_hibernate_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+
+5、Hibernate配置
+
+      Hibernate的配置主要包括：配置数据源c3p0，配置SessionFactory，配置事务管理器，配置事务管理，其spring-hibernate.xml文件如下：
+      
+      
+      
+      <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+	<!-- 配置数据源 c3p0 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 请求超时时间 -->
+		<property name="checkoutTimeout" value="30000" />
+		<!-- 每60秒检查所有连接池中的空闲连接。默认值: 0，不检查 -->
+		<property name="idleConnectionTestPeriod" value="30" />
+		<!-- 连接数据库连接池最大空闲时间 -->
+		<property name="maxIdleTime" value="30" />
+		<!-- 连接池初始化连接数 -->
+		<property name="initialPoolSize" value="5" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="20" />
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->
+		<property name="acquireIncrement" value="5" />
+	</bean>
+
+	<!-- 配置hibernate的SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 注入数据源 相关信息看源码 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- hibernate配置信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+
+				<!-- 开启二级缓存 ehcache -->
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="hibernate.cache.provider_configuration_file_resource_path">${hibernate.cache.provider_configuration_file_resource_path}
+				</prop>
+			</props>
+		</property>
+		<!-- 扫描hibernate注解配置的entity -->
+		<property name="packagesToScan" value="org.andy.work.entity" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置事务增强处理Bean，指定事务管理器 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<!-- 配置详细事务处理语义 -->
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="load*" propagation="SUPPORTS" read-only="true" />
+
+			<!-- 其他采用默认事务方式 -->
+			<tx:method name="*" />
+
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- Spring aop事务管理 -->
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* org.andy.work.service..*Impl.*(..))" />
+		<!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+
+</beans>
+
+
+6、ehcache.xml的配置
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+	<diskStore path="D:/ehcache" />
+	<!-- DefaultCache setting. -->
+     <defaultCache
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxElementsOnDisk="1000000"
+            overflowToDisk="true" 
+            memoryStoreEvictionPolicy="LRU">
+            
+    </defaultCache>
+
+	<!-- Special objects setting. -->
+
+	<cache 
+	     name="org.andy.work.entity.AcctUser"
+		 maxElementsInMemory="2"
+		 memoryStoreEvictionPolicy="LRU" 
+		 eternal="true" 
+		 diskPersistent="false"
+		 overflowToDisk="false" 
+		 maxElementsOnDisk="1000000" /> 
+
+
+
+</ehcache>
+
+上面Hibernate二级缓存ehcache存放磁盘是D:/ehcache 
+
+
+7、引入SpringMVC
+
+     添加spring-mvc.xml文件
+     
+     <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.1.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+	<!-- 自动扫描@Controller注入为bean -->
+	<context:component-scan base-package="org.andy.work.controller" />
+
+	<!-- 以下为SpringMVC配置 -->
+	<mvc:annotation-driven>
+		<!-- 返回json数据，@response使用 -->
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+</beans>
+
+
+8、配置web.xml容器
+
+      web容器是web项目的大脑，所以web容器，首先需要引入spring，让spring管理各个框架，并将其注入为bean。然后配置控制层的filter信息。并且配置了springmvc拦截的url为以.hmls结尾的请求。
+      
+      
+      web.xml文件如下：
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>springmvc_demo</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml,classpath:spring-hibernate.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- openSessionInView配置 作用是延迟session关闭到view层 -->
+	<filter>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<servlet>
+		<description>spring mvc servlet</description>
+		<servlet-name>rest</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- 此处配置的是SpringMVC的配置文件 -->
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>*.htmls</url-pattern>
+	</servlet-mapping>
+
+	<filter-mapping>
+		<filter-name>openSessionInViewFilter</filter-name>
+		<url-pattern>*.htmls</url-pattern>
+	</filter-mapping>
+
+	<!-- 配置session超时时间，单位分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
+
+
+部署服务器测试
+
+          使用Maven打包部署：clean compile  package
+          
+          
+具体请访问该链接：http://www.mamicode.com/info-detail-467301.html
+

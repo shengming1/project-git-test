@@ -1,0 +1,982 @@
+该项目的配置必须在maven环境下
+
+1、在pom.xml配置相应的包
+   
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.andy.sm</groupId>
+	<artifactId>springmvc_mybatis_demo</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>springmvc_mybatis_demo Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.version>4.1.4.RELEASE</spring.version>
+		<jackson.version>2.5.0</jackson.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- mybatis 包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.8</version>
+		</dependency>
+
+		<!--mybatis spring 插件 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<!-- mysql连接 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.34</version>
+		</dependency>
+
+		<!-- 数据源 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.4</version>
+		</dependency>
+
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>3.0-alpha-1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- json -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<!-- 文件上传 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>springmvc_mybatis_demo</finalName>
+		<plugins>
+			<!-- Run the JUnit unit tests in an isolated classloader -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+
+			<!-- generate java doc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<javadocDirectory>target/javadoc</javadocDirectory>
+					<reportOutputDirectory>target/javadoc</reportOutputDirectory>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<show>private</show>
+				</configuration>
+			</plugin>
+
+			<!-- 部署至本机 -->
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<container>
+						<containerId>tomcat6x</containerId>
+						<home>D:\WebServer\apache-tomcat-6.0.39</home>
+					</container>
+					<configuration>
+						<type>existing</type>
+						<home>D:\WebServer\apache-tomcat-6.0.39</home>
+					</configuration>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+</project>
+
+
+2、使用Generator自动生成Mybatis相关表信息（不是必须，也可以手动添加）
+
+  （1）、下载相关的资源
+
+         我们需要下载mybatis-generator-core-1.3.2.jar，MySQL-connector-Java-5.1.34.jar（对应相关数据库的驱动包），generator.xml（配置文件）
+         
+  （2）、配置generator.xml文件
+  
+           <?xml version="1.0" encoding="UTF-8"?>  
+    <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+    <generatorConfiguration>  
+        <!-- 数据库驱动包位置 -->  
+        <classPathEntry location="D:\generator\mysql-connector-java-5.1.34.jar" />   
+        <!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->  
+        <context id="DB2Tables" targetRuntime="MyBatis3">  
+            <commentGenerator>  
+                <property name="suppressAllComments" value="true" />  
+            </commentGenerator>  
+            <!-- 数据库链接URL、用户名、密码 -->  
+             <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/shop" userId="root" password="12345">   
+            <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->  
+            </jdbcConnection>  
+            <javaTypeResolver>  
+                <property name="forceBigDecimals" value="false" />  
+            </javaTypeResolver>  
+            <!-- 生成模型的包名和位置 -->  
+            <javaModelGenerator targetPackage="andy.model" targetProject="D:\generator\src">  
+                <property name="enableSubPackages" value="true" />  
+                <property name="trimStrings" value="true" />  
+            </javaModelGenerator>  
+            <!-- 生成的映射文件包名和位置 -->  
+            <sqlMapGenerator targetPackage="andy.mapping" targetProject="D:\generator\src">  
+                <property name="enableSubPackages" value="true" />  
+            </sqlMapGenerator>  
+            <!-- 生成DAO的包名和位置 -->  
+            <javaClientGenerator type="XMLMAPPER" targetPackage="andy.dao" targetProject="D:\generator\src">  
+                <property name="enableSubPackages" value="true" />  
+            </javaClientGenerator>  
+            <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->  
+            <table tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
+            <table tableName="course_info" domainObjectName="CourseInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
+            <table tableName="course_user_info" domainObjectName="CourseUserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
+        </context>  
+    </generatorConfiguration>  
+    
+  具体请访问链接：http://blog.csdn.net/fengshizty/article/details/43086833
+  
+3、自动生成表的Model，Mapping，Dao文件，先关使用见文章 http://blog.csdn.net/fengshizty/article/details/43086833 
+
+    并将其导入到项目的src/main/java包中。其中生成的Model中UserInfo如下：UserInfo.java（其中List<CourseInfo> courseInfos手动添加的）
+    
+    package org.andy.shop.model;
+
+import java.util.List;
+
+public class UserInfo {
+	private Integer id;
+
+	private String uname;
+
+	private Integer unumber;
+
+	private List<CourseInfo> courseInfos;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname == null ? null : uname.trim();
+	}
+
+	public Integer getUnumber() {
+		return unumber;
+	}
+
+	public void setUnumber(Integer unumber) {
+		this.unumber = unumber;
+	}
+
+	public List<CourseInfo> getCourseInfos() {
+		return courseInfos;
+	}
+
+}
+
+
+
+
+package org.andy.shop.dao;
+
+import java.util.List;
+
+import org.andy.shop.model.UserInfo;
+
+public interface UserInfoMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(UserInfo record);
+
+    int insertSelective(UserInfo record);
+
+    UserInfo selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(UserInfo record);
+
+    int updateByPrimaryKey(UserInfo record);
+    
+    List<UserInfo> selectAll();
+}
+
+
+
+mapping 中的配置文件UserInfoMapper.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.andy.shop.dao.UserInfoMapper">
+	<resultMap id="BaseResultMap" type="org.andy.shop.model.UserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="unumber" property="unumber" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, uname, unumber
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		user_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="org.andy.shop.model.UserInfo">
+		insert into user_info (id,
+		uname, unumber
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{uname,jdbcType=VARCHAR},
+		#{unumber,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.andy.shop.model.UserInfo">
+		insert into user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="uname != null">
+				uname,
+			</if>
+			<if test="unumber != null">
+				unumber,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uname != null">
+				#{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="unumber != null">
+				#{unumber,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.andy.shop.model.UserInfo">
+		update user_info
+		<set>
+			<if test="uname != null">
+				uname = #{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="unumber != null">
+				unumber = #{unumber,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.andy.shop.model.UserInfo">
+		update user_info
+		set uname = #{uname,jdbcType=VARCHAR},
+		unumber =
+		#{unumber,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<resultMap type="org.andy.shop.model.UserInfo" id="UserCourseMap"
+		extends="BaseResultMap">
+		<collection property="courseInfos" javaType="list"
+			ofType="org.andy.shop.model.CourseInfo">
+			<id property="id" column="course_id" jdbcType="INTEGER" />
+			<result property="cname" column="cname" jdbcType="VARCHAR" />
+			<result property="caddress" column="caddress" jdbcType="VARCHAR" />
+		</collection>
+
+
+	</resultMap>
+	<select id="selectAll" resultMap="UserCourseMap">
+		select u.id, u.uname,
+		u.unumber, c.id course_id, c.cname, c.caddress from user_info u left
+		join course_user_info cu on u.id = cu.uid
+		left join course_info c on
+		cu.cid = c.id
+	</select>
+</mapper>
+
+
+4、引入Spring并配置相关属性
+
+     在src/main/resources创建spring的配置文件，这里创建了spring.xml，信息如下：
+
+   
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!--引入配置属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+
+	<!--自动扫描含有@Service将其注入为bean -->
+	<context:component-scan base-package="org.andy.shop.service" />
+
+</beans>
+
+
+5、引入Mybatis并配置数据连接池等信息
+   5.1、数据连接池druid配置信息
+
+   配置连接池配置信息在config.properties中，如下：
+
+ 
+
+#mysql version database druid setting
+validationQuery=SELECT 1
+jdbc.url=jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=utf-8
+jdbc.username=root
+jdbc.password=12345
+
+
+  5.2、配置Mybatis相关信息
+
+    以下是mybatis的配置信息：spring-mybatis.xml（ps：名字可随便起）
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		">
+
+	<!-- 配置数据源 使用的是Druid数据源 -->
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="0" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="20" />
+		
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="0" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="60000" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="33" />
+		<!-- 用来检测有效sql -->
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+		<!-- 监控数据库 -->
+		<property name="filters" value="mergeStat" />
+	</bean>
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations" value="classpath:org/andy/shop/mapping/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="org.andy.shop.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 注解方式配置事物 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+
+		</tx:attributes>
+	</tx:advice>
+	<!-- Spring aop事务管理 -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* org.andy.shop.service..*Impl.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+
+</beans>
+
+
+主要配置数据连接池，事务管理， mybatis关联映射等，事务采用aop的声明式事务。
+
+6、引入日志
+
+     在src/main/resources中添加log4j日志配置信息：
+
+   log4j.properties
+
+### set log levels ###
+log4j.rootLogger = INFO , C , D , E 
+
+### console ###
+log4j.appender.C = org.apache.log4j.ConsoleAppender
+log4j.appender.C.Target = System.out
+log4j.appender.C.layout = org.apache.log4j.PatternLayout
+log4j.appender.C.layout.ConversionPattern = [springmvc_mybatis_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+### log file ###
+log4j.appender.D = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.D.File = ../logs/springmvc-mybatis-demo.log
+log4j.appender.D.Append = true
+log4j.appender.D.Threshold = INFO 
+log4j.appender.D.layout = org.apache.log4j.PatternLayout
+log4j.appender.D.layout.ConversionPattern = [springmvc_mybatis_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+### exception ###
+log4j.appender.E = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.E.File = ../logs/springmvc-mybatis-demo_error.log 
+log4j.appender.E.Append = true
+log4j.appender.E.Threshold = ERROR 
+log4j.appender.E.layout = org.apache.log4j.PatternLayout
+log4j.appender.E.layout.ConversionPattern = [sspringmvc_mybatis_demo][%p] [%-d{yyyy-MM-dd HH:mm:ss}] %C.%M(%L) | %m%n
+
+
+、创建Service
+
+    在src/main/java中创建相关的org.andy.shop.service包和org.andy.shop.service.Impl包。
+
+    UserService接口：
+
+ 
+
+package org.andy.shop.service;
+
+import java.util.List;
+
+import org.andy.shop.model.UserInfo;
+
+/**  
+ * 创建时间：2015-1-27 下午5:15:03  
+ * @author andy  
+ * @version 2.2  
+ */
+
+public interface UserService {
+
+	UserInfo getUserById(int id);
+	
+	List<UserInfo> getUsers();
+	
+	int insert(UserInfo userInfo);
+}
+
+   UserServiceImpl实现Service：
+
+package org.andy.shop.service.impl;
+
+import java.util.List;
+
+import org.andy.shop.dao.UserInfoMapper;
+import org.andy.shop.model.UserInfo;
+import org.andy.shop.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * 创建时间：2015-1-27 下午5:22:59
+ * 
+ * @author andy
+ * @version 2.2
+ */
+@Service("userService")
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserInfoMapper userInfoMapper;
+
+	@Override
+	public UserInfo getUserById(int id) {
+		return userInfoMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<UserInfo> getUsers() {
+		return userInfoMapper.selectAll();
+	}
+
+	@Override
+	public int insert(UserInfo userInfo) {
+		
+		int result = userInfoMapper.insert(userInfo);
+		
+		System.out.println(result);
+		return result;
+	}
+
+}
+
+
+8、测试Spring和Mybatis配置
+
+   在src/test/java中写测试类，检测是否能够读出数据，若能读出则证明Spring+Mybatis整合成功。
+
+TestUserService测试类：
+
+package org.andy.shop.service;
+
+import java.util.List;
+
+import org.andy.shop.model.UserInfo;
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.alibaba.fastjson.JSON;
+
+/**
+ * 创建时间：2015-1-27 下午10:45:38
+ * 
+ * @author andy
+ * @version 2.2
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring.xml",
+		"classpath:spring-mybatis.xml" })
+public class TestUserService {
+
+	private static final Logger LOGGER = Logger
+			.getLogger(TestUserService.class);
+
+	@Autowired
+	private UserService userService;
+
+	
+	@Test
+	public void testQueryById1() {
+		UserInfo userInfo = userService.getUserById(1);
+		LOGGER.info(JSON.toJSON(userInfo));
+	}
+
+	@Test
+	public void testQueryAll() {
+		List<UserInfo> userInfos = userService.getUsers();
+		LOGGER.info(JSON.toJSON(userInfos));
+	}
+
+	@Test
+	public void testInsert() {
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUname("xiaoming");
+		userInfo.setUnumber(4);
+		int result = userService.insert(userInfo);
+		System.out.println(result);
+	}
+}
+
+
+
+
+9、引入SpringMVC
+   9.1 配置SpringMVC配置信息
+
+    SpringMVC的配置信息主要包括控制层Controller的bean管理，视图层和控制层配置等等，下面是spring-mvc.xml信息：
+
+ 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.1.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
+	<context:component-scan base-package="org.andy.shop.controller" />
+
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<!-- json转换器 -->
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 配置多文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<!-- 上传文件大小限制为31M，31*1024*1024 -->
+			<value>32505856</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+
+</beans>
+
+
+ 9.2、Web容器web.xml配置
+
+    web容器配置启动加载的配置文件，设置SpringMVC拦截的请求（此处拦截.htmls结尾的url请求）
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>springmvc_mybatis_demo</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<servlet>
+		<description>spring mvc servlet</description>
+		<servlet-name>rest</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath:spring-mvc.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rest</servlet-name>
+		<url-pattern>*.htmls</url-pattern>
+	</servlet-mapping>
+
+	<!-- 配置session超时时间，单位分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
+
+
+9.3、Controller控制层
+
+    在org.andy.shop.controller创建控制层，如UserController.java
+
+ 
+
+package org.andy.shop.controller;
+
+import java.util.List;
+
+import org.andy.shop.model.UserInfo;
+import org.andy.shop.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**  
+ * 创建时间：2015-1-28 下午1:17:27  
+ * @author andy  
+ * @version 2.2  
+ */
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping("/showInfo/{userId}")
+	public String showUserInfo(ModelMap modelMap, @PathVariable int userId){
+		UserInfo userInfo = userService.getUserById(userId);
+		modelMap.addAttribute("userInfo", userInfo);
+		return "/user/showInfo";
+	}
+	
+	@RequestMapping("/showInfos")
+	public @ResponseBody Object showUserInfos(){
+		List<UserInfo> userInfos = userService.getUsers();
+		return userInfos;
+	}
+}
+
+
+9.4、视图层
+
+  在WEB-INF创建视图总目录views(为了安全起见一般都在WEB-INF下创建)，创建/user/showInfo.jsp视图文件。
+
+ 
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>userInfo</title>
+</head>
+<body>
+
+     姓名： ${userInfo.uname}
+
+</body>
+</html>
+
+
+具体请访问链接：http://doc.okbase.net/fengshizty/archive/126397.html
+
